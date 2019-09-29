@@ -11,7 +11,7 @@ $obj = json_decode($json_input, true);
 
 $input =  $_GET['q'];
 
-$query = "SELECT r.id, r.directions_url, r.image_url, r.serving_size, r.label, r.cooking_time,
+$query = "SELECT r.id, r.directions_url, r.image_url, r.serving_size, r.label, r.cooking_time, r.categories,
     i.recipe_id, GROUP_CONCAT(i.ingredients_desc SEPARATOR '\n') AS ingredients
     FROM recipe AS r
     JOIN recipe_ingredients AS i
@@ -42,8 +42,7 @@ if($count <= 5){
   $result2 = json_decode($result, true);
 
   $resultLabel= [];
-  $plzwork = null;
-  for($i= 0; $i < 5; $i++){
+  for($i= 0; $i < 9; $i++){
     $thisData = [
       "label" => $result2["hits"][$i]["recipe"]["label"],
       "image" => $result2["hits"][$i]["recipe"]["image"],
@@ -55,7 +54,7 @@ if($count <= 5){
     $resultLabel[]=$thisData;
   };
 
-  for($i = 0; $i < 5; $i++){
+  for($i = 0; $i < 9; $i++){
     $label =  $resultLabel[$i]["label"];
     $image =  $resultLabel[$i]["image"];
     $url =  $resultLabel[$i]["url"];

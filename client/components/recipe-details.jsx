@@ -5,11 +5,8 @@ import Header from './header';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
-    console.log("props are ", props)
-    console.log("Recipe is ", props.recipe.ingredients)
     super(props);
     this.state = {
-      favStatus: false,
       modal: ''
     };
     this.handleShoppingList = this.handleShoppingList.bind(this);
@@ -23,41 +20,37 @@ class RecipeDetails extends React.Component {
   }
 
   showModal(recipe) {
+
+    let favAdded = "Added to";
+    let favRemoved = "Removed from";
+    let favMessage = this.props.recipe.categories === "favorites" ? favAdded : favRemoved;
+
     if(this.state.modal === ''){
       return null;
     } else if (this.state.modal === 'shoppinglist') {
       return (
-        <div>
-          <div className="modal">Added to Shopping List
-            <button
-              onClick={() => {
-                this.closeModal();
-              }}>close</button>
-          </div>
+        <div onClick={() => { this.closeModal(); }}>
+          <div className="modalToo modalText textFont">Added to Shopping List</div>
         </div>
       );
     } else if (this.state.modal === 'favorites') {
       return (
-        <div>
-          <div className="modal">Added to Favorites
-            <button
-              onClick={() => {
-                this.closeModal();
-              }}>close</button>
-          </div>
+        <div onClick={() => { this.closeModal(); }}>
+          <div className="modalToo modalText textFont">{favMessage} <br/> Favorites</div>
         </div>
       );
     } else if (this.state.modal === 'calendar') {
       return (
         <div>
           <div className="modal">
-            <div className="smallcalendar">
-              <Calendar recipeId={recipe} setView={this.props.setView} view={this.props.view}/>
-            </div>
-            <button
+            <div className= "float-right mr-3"
               onClick={() => {
                 this.closeModal();
-              }}>close</button>
+              }}><i className="fas fa-times"></i>
+            </div>
+            <div className="smallCalendar">
+              <Calendar recipeId={recipe} setView={this.props.setView} view={this.props.view}/>
+            </div>
           </div>
         </div>
       );
@@ -72,19 +65,41 @@ class RecipeDetails extends React.Component {
   }
 
   handleFavorites() {
-    if(!this.state.favStatus) {
-      this.setState(state=>({favStatus: !state.favStatus}));
-      this.setState({
-        modal: 'favorites',
-      });
-      this.showModal();
-      this.putRecipeInFavorites(this.props.recipe);
-    }
+    let recipeCategoryToggled;
+    this.setState({ modal: 'favorites' });
+    this.showModal();
+    this.putRecipeInFavorites(this.props.recipe);
+
+    if (this.props.recipe.categories !== "favorites") {
+      recipeCategoryToggled = {
+        categories: "favorites",
+        cooking_time: this.props.recipe.cooking_time,
+        directions_url: this.props.recipe.directions_url,
+        id: this.props.recipe.id,
+        image_url: this.props.recipe.image_url,
+        ingredients: this.props.recipe.ingredients,
+        label: this.props.recipe.label,
+        recipe_id: this.props.recipe.recipe_id,
+        serving_size: this.props.recipe.serving_size
+        }
+    } else {
+        recipeCategoryToggled = {
+          categories: null,
+          cooking_time: this.props.recipe.cooking_time,
+          directions_url: this.props.recipe.directions_url,
+          id: this.props.recipe.id,
+          image_url: this.props.recipe.image_url,
+          ingredients: this.props.recipe.ingredients,
+          label: this.props.recipe.label,
+          recipe_id: this.props.recipe.recipe_id,
+          serving_size: this.props.recipe.serving_size
+      }
+    };
+    this.props.setView("recipeDetails", recipeCategoryToggled)
   }
 
   handleShoppingList() {
     let recipe = this.props.recipe.ingredients.split('\n');
-    console.log("clicked", recipe);
     fetch(`/api/addtoShoppingListFromDetails.php`, {
       method: 'POST',
       headers: {
@@ -92,10 +107,10 @@ class RecipeDetails extends React.Component {
       },
       body: JSON.stringify(recipe),
     })
-      .then(response => {
-        console.log("response", response)
-        response.json()
-      });
+    this.setState({
+      modal: 'shoppinglist'
+    });
+    this.showModal();
   }
 
   putRecipeInFavorites(data){
@@ -106,87 +121,88 @@ class RecipeDetails extends React.Component {
       },
       body: JSON.stringify(data),
     })
-    .then(response=>{
-      console.log("response", response)
-      response.json()});
   }
 
   render() {
     let recipe = this.props.recipe;
     let props = this.props
-    // console.log("props is ", props)
-    const heartColor={
-      whiteHeart:"./image/whiteHeartIcon.png",
-      redHeart:"./image/redHeart.png"
-    }
-
-
-    // console.log("Ingredeients before split", recipe.ingredients)
     let ingredientLines = recipe.ingredients.split('\n');
-    // console.log("ingredients after split ", ingredientLines);
 
+    /* Elaine's heart using this.state.favStatus */
+    const heartColor = {
+      whiteHeart: "./image/whiteHeartIcon.png",
+      redHeart: "./image/redHeart.png"
+    }
     let image = !this.state.favStatus ? 'whiteHeart' : 'redHeart';
-    console.log(recipe.id);
-    console.log("worked", this.props);
 
+    let red = "./image/redHeart.png";
+    let white = "./image/whiteHeartIcon.png";
+    let jaeTestHeart = recipe.categories === "favorites" ? red : white;
 
     return (
-      <div className="container">
-        <div>
-          <SearchBar setView={this.props.setView}/>
-        </div>
-        <div>
-          <p className='h1'>{recipe.label}</p>
-          <div className="row">
-            <div className="propsFood" style={{
-              backgroundImage: "url("+recipe.image_url+")",
-              backgroundSize: "contain",
-              backgroundRepeat:"no-repeat"}}></div>
-            <div className="timeServing">
-              <div>Time: {recipe.cooking_time} minutes</div>
-              <div>Serving size: {recipe.serving_size}</div>
-            <div className="iconImages">
-              {
-                <img
-                  className="calendarIcon imgIcon"
-                  src="./image/calendarIcon.png"
-                  alt="First Icon"
-                  onClick={()=>this.handleCalendar()}
-                />
-              }
-              {
-                <img
-                  className="heartIcon imgIcon"
-                  src={heartColor[image]}
-                  alt="Second Icon"
-                  onClick={()=>this.handleFavorites()}
-                />
-              }
-              {
-                <img
-                  className="shoppingListIcon imgIcon"
-                  onClick= {() => this.handleShoppingList()} //need to change to the modal view for onClick. this is just for testing; it goes to shoppingList view
-                  src="./image/shoppingList.png"
-                  alt="Third Icon"
-                />
-              }
+      <div>
+        <Header setView={this.props.setView} text="Epic Meal Planner"/>
+        <div className="container textFont">
+          <div className="row justify-content-center my-5">
+            <SearchBar setView={this.props.setView}/>
+          </div>
+
+          <div className="card">
+            <p className='recipeDetailsTitle'>{recipe.label}</p>
+            <div className="row">
+              <div className="propsFood" style={{
+                backgroundImage: "url("+recipe.image_url+")",
+                backgroundSize: "contain",
+                backgroundRepeat:"no-repeat"}}>
+              </div>
+              <div className="timeServing">
+                <div className="mt-2 mb-4">Time: {recipe.cooking_time} minutes</div>
+                <div className="my-4">Serving size: {recipe.serving_size}</div>
+                <div className="mt-4">
+                  <div className="iconImages">
+                    {
+                      <img
+                        className="calendarIcon imgIcon align-bottom mr-4"
+                        src="./image/calendarIcon.png"
+                        alt="First Icon"
+                        onClick={()=>this.handleCalendar()}
+                      />
+                    }
+                    {
+                      <img
+                        className="heartIcon imgIcon align-bottom mr-4"
+                        src={jaeTestHeart}
+                        alt="Second Icon"
+                        onClick={()=>this.handleFavorites()}
+                      />
+                    }
+                    {
+                      <img
+                        className="shoppingListIcon imgIcon align-bottom mr-4"
+                        onClick= {() => this.handleShoppingList()}
+                        src="./image/shoppingList.png"
+                        alt="Third Icon"
+                      />
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
+            <div>
+              <div className="text-center mt-2 mb-1">INGREDIENTS</div>
+              <div>
+                {
+                  ingredientLines.map((ingredient, i) => {
+                    return <div key={i}>- {ingredient}</div>;
+                  })}
+              </div>
+              <div className="text-center">
+                <a className="text-secondary font-weight-bold" href={recipe.directions_url} target="_blank">Click for Instructions</a>
+              </div>
+              {this.showModal(recipe)}
             </div>
           </div>
         </div>
-
-        <div className="text-center">INGREDIENTS</div>
-        <div>
-          {
-            ingredientLines.map((ingredient, i) => {
-            return <div key={i}>- {ingredient}</div>;
-          })}
-        </div>
-        <div className="text-center">
-        <a className="text-dark" href={recipe.directions_url}>Click for Instructions</a>
-        </div>
-        {this.showModal(recipe)}
-
       </div>
     );
   }

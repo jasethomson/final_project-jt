@@ -2,7 +2,6 @@ import React from "react";
 import CalendarTable from "./calendar-table";
 import CalendarDayView from "./calendar-day-view";
 import Header from './header';
-import { Duplex } from "stream";
 
 class Calendar extends React.Component {
   constructor(props){
@@ -13,7 +12,7 @@ class Calendar extends React.Component {
       date: this.setDate(),
       day: false
     }
-    this.testDate = null;
+    this.totalOffset = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -71,24 +70,26 @@ class Calendar extends React.Component {
     event.preventDefault();
     const mealsToPost = this.state.pushToCalendar;
     let counter = 0;
+    const mealPosts = [];
     while (counter < mealsToPost.length) {
-      mealsToPost[counter].recipe_label = this.props.recipeId.label;
+      mealsToPost[counter].recipe_label = this.props.recipeId.label.slice(0,15);
       const req = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(mealsToPost[counter])
       };
-      fetch('/api/postMeals.php', req)
-        .then(res => res.json())
+      mealPosts.push(fetch('/api/postMeals.php', req)
+        .then(res => res.json()))
       counter++;
     }
-    this.getStoredMeals();
+    Promise.allSettled(mealPosts).then(this.getStoredMeals);
   }
 
   handleSubmit() {
     event.preventDefault();
     const mealsToPost = this.state.pushToCalendar;
     let counter = 0;
+    const mealPosts = [];
     while(counter < mealsToPost.length){
       mealsToPost[counter].recipe_label = this.state.mealInput;
       const req = {
@@ -96,16 +97,17 @@ class Calendar extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(mealsToPost[counter])
       };
-      fetch('/api/postMeals.php', req)
-        .then(res => res.json())
+      mealPosts.push(fetch('/api/postMeals.php', req)
+        .then(res => res.json()))
       counter++;
     }
-    this.getStoredMeals();
+    Promise.allSettled(mealPosts).then(this.getStoredMeals);
     event.target.reset();
   }
 
   componentDidMount(){
     this.getStoredMeals();
+    this.setMonthAndYear();
   }
 
   getStoredMeals(){
@@ -204,6 +206,7 @@ class Calendar extends React.Component {
       }
       datePosition++;
     }
+    this.setMonthAndYear();
     this.setState({ meal: weekMeals})
   }
 
@@ -212,33 +215,46 @@ class Calendar extends React.Component {
     const finalDate = new Date(today);
     const currentDate = today.getDate();
     const weekDay = today.getDay();
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    this.year = finalDate.getFullYear();
-    let monthNumeric = finalDate.getMonth();
-    this.monthLiteral = months[monthNumeric];
+    let year = finalDate.getFullYear();
+
     if(offset === 7 || offset === -7){
-      finalDate.setDate(currentDate - weekDay + offset + this.testDate);
+      finalDate.setDate(currentDate - weekDay + offset + this.totalOffset);
     } else if( offset >= 0 && offset < 7) {
-      finalDate.setDate(currentDate - weekDay + offset + this.testDate);
+      finalDate.setDate(currentDate - weekDay + offset + this.totalOffset);
     } else {
       finalDate.setDate(currentDate - weekDay);
     }
 
-    let returnDate = this.year + '-'
+    let returnDate = year + '-'
       + ('0' + (finalDate.getMonth() + 1)).slice(-2) + '-'
       + ('0' + finalDate.getDate()).slice(-2);
 
     return returnDate;
   }
 
-  changeWeek(){
-    if (event.srcElement.textContent === "Previous Week"){
-      this.setState({ date: this.setDate(-7) })
-      this.testDate -=7;
-    } else if (event.srcElement.textContent === "Next Week"){
-      this.setState({ date: this.setDate(7) })
-      this.testDate += 7;
+  setMonthAndYear(){
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let monthNumeric = "";
+    if(this.state.date[5] === "0"){
+      monthNumeric = parseInt(this.state.date[6]) - 1;
+    } else {
+      monthNumeric = parseInt(this.state.date[5] + this.state.date[6]) -1;
     }
+    this.monthLiteral = months[monthNumeric];
+
+    const copyDateState = this.state.date;
+    this.year = copyDateState.slice(0,4);
+
+  }
+
+  changeWeek(){
+    if (event.srcElement.textContent === "Prev") {
+        this.setState({ date: this.setDate(-7) })
+        this.totalOffset -= 7;
+    } else if (event.srcElement.textContent === "Next") {
+        this.setState({ date: this.setDate(7) })
+        this.totalOffset += 7;
+      }
     this.getStoredMeals();
   }
 
@@ -330,7 +346,7 @@ class Calendar extends React.Component {
     this.setDate();
     if(!this.state.meal){
       return (
-        <div>Loading</div>
+        <div className="loader"></div >
       );
     } else if (this.state.day) {
       return (
@@ -349,46 +365,61 @@ class Calendar extends React.Component {
     } else if (this.props.view) {
       return (
         <div>
-          <Header setView={this.props.setView} />
-          <h3 className="text-center">{this.monthLiteral}, {this.year}</h3>
-          <CalendarTable
-            handleClick={this.handleClick}
-            changeView={this.changeView}
-            meal={this.state.meal}
-            setDate={this.setDate}
-            date={this.state.date}
-            recipeLink={this.recipeLink} />
-          <button onClick={this.handleDetailSubmit} className="btn btn-primary mb-2">Add</button>
-          <button type="submit" onClick={this.changeWeek} className="btn btn-primary mb-2 mr-2 ml-5">Previous Week</button>
-          <button type="submit" onClick={this.changeWeek} className="btn btn-primary mb-2 ml-4">Next Week</button>
+          <div className="calendarHeaderText ml-3">{this.monthLiteral} {this.year}</div>
+          <div className="container">
+            <CalendarTable
+              handleClick={this.handleClick}
+              changeView={this.changeView}
+              meal={this.state.meal}
+              setDate={this.setDate}
+              date={this.state.date}
+              recipeLink={this.recipeLink} />
+            <div className="row justify-content-center">
+              <div className="col-4">
+                <button type="submit" onClick={this.changeWeek} className="btn btn-secondary ml-3">Prev</button>
+              </div>
+              <div className="col-4">
+                <button onClick={this.handleDetailSubmit} className="btn btn-secondary mb-2 ml-3">Add</button>
+              </div>
+              <div className="col-4">
+                <button type="submit" onClick={this.changeWeek} className="btn btn-secondary ml-3">Next</button>
+              </div>
+            </div>
+          </div>
         </div>
       );
     } else if(this.state.meal){
-      const headerText = (<div className="text-center">{this.monthLiteral}, {this.year}</div>)
+      const headerText = (<div>{this.monthLiteral} {this.year}</div>);
       return (
         <div>
           <Header setView={this.props.setView} text={headerText}/>
-          <CalendarTable
-          handleClick={this.handleClick}
-          changeView={this.changeView}
-          meal={this.state.meal}
-          setDate={this.setDate}
-          date={this.state.date}
-          recipeLink={this.recipeLink} />
-          <form className="form-inline text-align-center" onSubmit={this.handleSubmit}>
-            <div className="form-group mx-sm-3 mb-2 mr-2 ml-5">
-              <input
-              maxlength="20"
-              required
-              onChange={this.handleChange}
-              type="text"
-              className="form-control"
-              placeholder="Add Meal" />
+          <div className="container textFont mt-5">
+            <CalendarTable
+              handleClick={this.handleClick}
+              changeView={this.changeView}
+              meal={this.state.meal}
+              setDate={this.setDate}
+              date={this.state.date}
+              recipeLink={this.recipeLink} />
+            <form className="form-inline text-align-centerborder" onSubmit={this.handleSubmit}>
+              <div className="form-group mx-sm-3 mb-2 mr-2 ml-5">
+                <input
+                maxLength="15"
+                required
+                onChange={this.handleChange}
+                type="text"
+                className="form-control"
+                placeholder="Add a meal"/>
+              </div>
+              <button type="submit" className="btn btn-secondary mb-2">Add</button>
+            </form>
+            <div className="d-flex justify-content-between">
+              <button type="submit" onClick={this.changeWeek} className="btn btn-secondary mb-2 ml-5 float-left">Prev</button>
+              <span className="mr-5 px-5 float-right"></span>
+              <span className="mr-2 float-right"></span>
+              <button type="submit" onClick={this.changeWeek} className="btn btn-secondary mb-2 mr-5 float-right">Next</button>
             </div>
-            <button type="submit" className="btn btn-primary mb-2">Add</button>
-          </form>
-          <button type="submit" onClick={this.changeWeek} className="btn btn-primary mb-2 mr-2 ml-5">Previous Week</button>
-          <button type="submit" onClick={this.changeWeek} className="btn btn-primary mb-2 ml-4">Next Week</button>
+          </div>
         </div>
       );
     }

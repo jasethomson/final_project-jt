@@ -2,10 +2,8 @@ import React from 'react';
 import ShoppingListItem from './shopping-list-item';
 
 function ShoppingListItemList(props) {
-  console.log("item list props are ", props.allItems)
-  console.log("toggle checked is ", props.toggleChecked)
   return (
-    <ul>
+    <div>
       {props.allItems.map(item => {
         return (
           <ShoppingListItem
@@ -15,7 +13,7 @@ function ShoppingListItemList(props) {
             toggleChecked={props.toggleChecked}/>
         );
       })}
-    </ul>
+    </div>
   );
 }
 
