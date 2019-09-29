@@ -1,26 +1,15 @@
 .contentRecipeBar{
-    height: 100px;
-    width: 300px;
+    margin: 10px;
+    display: inline-block;
 }
 
-.calendarIcon{
-    height: 50px;
-    width: 50px;
-}
-
-.heartIcon{
-    height: 50px;
-    width: 50px;
-}
-
-.shoppingListIcon{
-    height: 50px;
-    width: 50px;
+.imgIcon{
+    height: 30px;
+    width: 30px;
+    margin: 3px;
 }
 
 .iconImages{
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
     display: flex;
 }
 
@@ -29,8 +18,105 @@
     width: 19px;
 }
 
-/* .propsImage{
-    height: 200px;
-    width: 200px;
+.propsImage{
+    display: inline-block;
+
+}
+
+.modal{
+    display: block;
+
+    height: auto;
+    width: auto;
+
+    position: fixed;
+
+    z-index: 100;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: rgb(252, 252, 252);
+    box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9)
+}
+
+.header{
+    display: inline-block;
+}
+
+.headerText{
+    display: inline-block;
+}
+
+.menu{
+    display: inline-block;
+    position: "absolute";
+    top: 0;
+    left: 0;
+    /* position: relative; */
+    /* left: 0;
+    top: 0;
+    transform: translate3d(-100vw, 0, 0);
+         
+    width: 100vw;
+    height: 100vh; */
+}
+
+.smallcalendar{
+    max-height: 685px;
+    width: 350px;
+}
+.section>.row{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.timeServing{
+    height: 50px;
+}
+.propsFood{
+    height: 100px;
+    width: 100px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.searchBarContainer{
+    display: inline-block;
+}
+
+.searchBarForm{
+    display: inline-block;
+}
+
+h4{
+    text-align: center;
+}
+
+.card-body{
+    font-size: 1rem;
+    display: inline-block;
+    padding: 1rem 0 0 1rem
+}
+
+.card-text{
+    font-size: 1rem;
+}
+
+/* .card>.row{
+    flex-grow:1;
+
 } */
 
+.card-title{
+    font-size: .75em;
+}
+.card-text{
+    font-size: .75em;
+}
+
+.h1{
+    font-size: 2em;
+}

@@ -1,12 +1,14 @@
 import React from "react";
 import Calendar from "./calendar";
 import ShoppingList from './shopping-list';
-import SearchBar from "./searchBar";
-import SearchResults from "./searchResults";
-import RecipeDetails from "./recipeDetails";
-import FavoriteList from "./favoriteList";
-import Menu from "./menu";
-
+import SearchBar from "./search-bar";
+import SearchBarResultsList from "./search-bar-results-list";
+import RecipeDetails from "./recipe-details";
+import RecipesCategoriesList from "./recipes-categories-list";
+import RecipesFavoritesList from "./recipes-favorites-list";
+import Header from "./header";
+import Recipes from './recipes';
+import UserInfo from "./user-info";
 
 class App extends React.Component {
   constructor(props) {
@@ -19,10 +21,10 @@ class App extends React.Component {
         recipe: {}
       },
       searchTerm: "",
-      modal: "none"
+      category: null
     };
     this.setView = this.setView.bind(this);
-    this.setModal = this.setModal.bind(this);
+    this.setCategory = this.setCategory.bind(this);
     this.getFavorites= this.getFavorites.bind(this);
     this.recipeDetails = this.recipeDetails.bind(this);
     this.addToShoppingList = this.addToShoppingList.bind(this);
@@ -35,21 +37,25 @@ class App extends React.Component {
     });
   }
 
-  // ---- new code -----
-   componentDidMount() {
+  setCategory(category) {
+    this.setState({ category });
+  }
+
+  componentDidMount() {
     this.getFavorites();
     this.recipeDetails();
-    this.addToShoppingList({ id: 2 });
   }
 
   getFavorites(){
     fetch(`/api/getFavorites.php`)
       .then(res => res.json())
       .then(response => {
-        // console.log("description Page",response);
-      this.setState({ modal: response })});
+        this.setState({
+          modal: response
+        })
+      }
+    );
   }
-
 
   recipeDetails(oneRecipe) {
     const req = {
@@ -58,16 +64,15 @@ class App extends React.Component {
       body: JSON.stringify(oneRecipe)
     };
 
-    fetch('/api/recipeDetails.php', req)
-      .then(res => res.json())
-      .then(viewOneRecipe=> {
-        // console.log("recipeDetails n favorites:",viewOneRecipe)
-        const allItems = this.state.oneRecipeDetail.concat(viewOneRecipe);
-        this.setState({ oneRecipe: allItems });
-      });
+    // fetch('/api/recipeDetails.php', req)
+    //   .then(res => res.json())
+    //   .then(viewOneRecipe=> {
+    //     // console.log("recipeDetails n favorites:",viewOneRecipe)
+    //     const allItems = this.state.oneRecipeDetail.concat(viewOneRecipe);
+    //     this.setState({ oneRecipe: allItems });
+    //   });
 
   }
-
 
     addToShoppingList(addingredients) {
     const req = {
@@ -85,42 +90,74 @@ class App extends React.Component {
       });
 
   }
-  componentDidMount(){
-    this.getFavorites();
-  }
-
-  setModal(modal) {
-    this.setState({ modal });
-  }
 
   render() {
-    let display;
-    let menu = <Menu setView={this.setView}/>
+    let title, display;
 
     if (this.state.view.name === "home") {
-      display = <SearchBar setView={this.setView}/>;
-    } else if (this.state.view.name === "search bar result") {
-      display = (<SearchResults setView={this.setView} value={this.state.searchTerm} />);
-    } else if (this.state.view.name==="recipe details"){
-      display=(<RecipeDetails setView={this.setView} recipe={this.state.view.recipe}/>);
-    } else if (this.state.view.name ==="recipe details"){
-      display=(<SearchBarRecipe setView={this.setView} />);
-    }else if(this.state.view.name==="calendar"){
-      display=(<Calendar setView={this.setView} setModal={this.setModal}/>)
-    }else if(this.state.view.name==="shoppinglist"){
-      display=(<ShoppingList setView={this.setView} setModal={this.setModal}/>)
-    }else if(this.state.view.name==="favorite list"){
-      display=(<FavoriteList setView={this.setView}/>)
-
+      title = "Home";
+      display = (
+        <React.Fragment>
+          <div className="container">
+            <div className="row justify-content-end">
+              <Header setView={this.setView}/>
+            </div>
+          </div>
+          <div className="container">
+            <div className="row justify-content-center my-2">
+              <SearchBar setView={this.setView}/>
+            </div>
+            <div className="row justify-content-center my-2">
+              <h3>Find a new dish.</h3>
+              <h3>Plan your next meal.</h3>
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    } else if (this.state.view.name === "recipes") {
+      title = "Recipes";
+      display = (
+        <Recipes setCategory={this.setCategory} setView={this.setView}/>
+      );
+    } else if (this.state.view.name === "calendar") {
+      title = "Calendar";
+      display = (
+        <Calendar setView={this.setView} />
+      );
+    } else if (this.state.view.name === "shoppingList") {
+      title = "Shopping List";
+      display = (
+        <ShoppingList setView={this.setView}/>
+      );
+    } else if (this.state.view.name === "userInfo") {
+      title = "User Info";
+      display = (
+        <UserInfo setView={this.setView}/>
+      );
+    } else if (this.state.view.name === "searchBarResultsList") {
+      title = "Search Results";
+      display = (
+        <SearchBarResultsList setView={this.setView} value={this.state.searchTerm}/>
+      );
+    } else if (this.state.view.name === "recipesCategoriesList") {
+      title = "Categories";
+      display = (
+        <RecipesCategoriesList setView={this.setView} category={this.state.category}/>
+      );
+    } else if (this.state.view.name === "recipeDetails") {
+      title = "Recipe Details";
+      display = (
+        <RecipeDetails setView={this.setView} recipe={this.state.view.recipe} view={this.state.view}/>
+      );
     }
+
     return (
       <div>
+        <Header setView={this.setView} text={title}/>
         {display}
-        {menu}
       </div>
     );
   }
-
 }
 
 export default App;

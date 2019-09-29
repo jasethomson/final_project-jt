@@ -1,34 +1,40 @@
 import React from 'react';
+import Header from './header';
 
-class favoriteList extends React.Component{
+class RecipesFavoritesList extends React.Component{
     constructor(props){
+      console.log("constructor props are ", props)
         super(props);
         this.state={
-            favoriteList:[]
+            favoriteList: []
         }
+    this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(props, recipe) {
-    console.log(props);
-    this.props.setView("recipe details", recipe, []);
+    console.log("props are ", props);
+    // console.log("recipe is ", this.state.favoriteList)
+    var favoriteDetails = this.state.favoriteList[0];
+    console.log("favoriteDetails ", favoriteDetails);
+    this.props.setView("recipeDetails", favoriteDetails);
       }
 
     componentDidMount(){
             fetch("/api/getFavorites.php")
               .then(response => response.json())
               .then(recipes => {
+                console.log("recipes are ", recipes)
                 this.setState({ favoriteList: recipes });
               })
     }
 
     render(){
-        return ( 
+        return (
             <div className="card mb-3" style={{ maxWidth: "480px" }}>
               <div className="row no-gutters">
-                <h1>Favorites</h1>
                 <div className="col-sm-4">
                   <div
-                  
+
                     className="card-img-top propsImage"
                     style={{
                       backgroundImage: "url("+this.props.image_url+")",
@@ -38,7 +44,7 @@ class favoriteList extends React.Component{
                       width: "150px"
                     }}
                   ></div>
-                  
+
                 </div>
                 {this.state.favoriteList.map((recipe)=>{
                       return(
@@ -47,7 +53,7 @@ class favoriteList extends React.Component{
                                 <img
                                 className="card-title"
                                 src={recipe.image_url}
-                                // onClick={e => handleClick(recipe, recipe.image_url)}
+                                onClick={() => this.handleClick()}
                                 />
                                 <h5>{recipe.label}</h5>
                                 <p className="card-text">Time: {recipe.cooking_time} minutes</p>
@@ -57,11 +63,11 @@ class favoriteList extends React.Component{
                         </div>
                       );
                   })}
-                
+
               </div>
             </div>
           );
     }
 }
 
-export default favoriteList; 
+export default RecipesFavoritesList;
