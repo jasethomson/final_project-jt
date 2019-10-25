@@ -9,6 +9,9 @@ startUp();
 $json_input = file_get_contents('php://input');
 $obj = json_decode($json_input, true);
 
+var_dump("input:" . $json_input);
+var_dump("obj:" . $obj);
+
 $recipeDate = $obj['date'];
 $recipeMealTime = $obj['meal_time'];
 $recipeLabel =$obj['recipe_label'];
