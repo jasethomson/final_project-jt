@@ -235,3 +235,67 @@ table.table-bordered > thead > tr > th{
 table.table-bordered > tbody > tr > th{
     border:1px solid black;
 }
+
+
+
+
+/* desktop */
+@media (min-width: 1025px){
+    .searchbar{
+        width:25vw;
+        margin-top: 100px;
+    }
+    .headerTextMenu{
+        color: white;
+        font-weight: bold;
+    }
+    .fa-bars {
+        color: black;
+    }
+    .homeText{
+        background-color: rgba(255, 255, 255, 0.6);
+        width: 20vw;
+        margin: auto;
+    }
+    .textSize {
+        font-size: 2.25rem;
+    }
+}
+
+
+/* ipad landscape */
+@media only screen and  (min-width: 769px) and (max-width: 1024px){
+    .searchbar{
+        width: 40vw;
+    }
+}
+
+
+
+
+/* ipad portait */
+@media only screen and  (min-width: 737px) and (max-width: 768px){
+    .searchbar{
+        width: 45vw;
+    }
+}
+
+
+
+
+/* iphone 6/7/8 landscape */
+@media only screen and  (min-width: 601px) and (max-width: 736px){
+    .searchbar{
+        width: 50vw;
+    }
+}
+
+
+
+
+/* iphone 6/7/8 portait */
+@media only screen and  (min-width: 0px) and (max-width: 600px){
+    .searchbar{
+        width: 70vw;
+    }
+}

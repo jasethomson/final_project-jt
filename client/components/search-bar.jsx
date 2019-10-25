@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
       <div className="searchBarContainer rounded-circle textFont">
         <form className="searchBarForm" onSubmit={this.handleSearch}>
           <input
-            className="rounded-pill mx-1"
+            className="rounded-pill mx-1 searchbar"
             type="search"
             value={this.state.value}
             placeholder=" Search"
