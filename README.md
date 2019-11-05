@@ -2,9 +2,9 @@
 
 [Live Site](https://mealplanner.jasethomson.com/)
 
-## MealPlanner Details
+## Epic Meal Planner Details
 
-Full stack application utilizing React and PHP to help find, plan and organize meals. Search recipes from the Edamam API with access to over 2 million recipes. Favorite recipes, add them to breakfast, lunch or dinner on calendar with weekly and daily views. With the click of one button, easily add all ingredients to grocery shopping list, or just navigate to the grocery list and add any item to the list. Check off items at the store as you pick them up. Check out the categories page to find your favorited recipes and other great recipes based on dietary restrictions.
+Full stack application utilizing React and PHP to help find, plan and organize meals. Search recipes from the Edamam API with access to over 2 million recipes. Favorite recipes, add them to breakfast, lunch or dinner on calendar with weekly and daily views. With the click of one button, easily add all ingredients to grocery shopping list, or just navigate to the grocery list and add any item to the list. Check off items on your grocery list at the store as you pick them up. Check out the categories page to find your favorited recipes and other great recipes based on dietary restrictions.
 
 ### Project Tech Stack
 - JavaScript
