@@ -17,7 +17,7 @@ class SearchBarResultsList extends React.Component {
 
   componentDidMount(){
     fetch( `/api/test.php?q=` + this.props.value )
-      .then(response => response.json())
+      .then(response => response.text())
       .then(recipes => {
         this.setState({ list: recipes });
       });
