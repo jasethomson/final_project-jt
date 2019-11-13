@@ -17,9 +17,10 @@ class SearchBarResultsList extends React.Component {
 
   componentDidMount(){
     fetch( `/api/test.php?q=` + this.props.value )
-      .then(response => response.text())
+      .then(response => response.json())
       .then(recipes => {
-        this.setState({ list: recipes });
+        this.setState({ list: recipes })
+        console.log("recipes", recipes);
       });
   }
 
@@ -28,9 +29,10 @@ class SearchBarResultsList extends React.Component {
       return;
     }
     fetch( `/api/test.php?q=` + this.props.value )
-      .then(response => response.text())
+      .then(response => response.json())
       .then(recipes => {
         this.setState({ list: recipes });
+        console.log("recipes", recipes);
       })
   }
 
