@@ -2,6 +2,8 @@
 body{
     background: url("../image/backgroundImage4.jpg") no-repeat bottom center scroll;
    background-size:cover;
+   height: 100vh;
+
 }
 
 .contentRecipeBar{
@@ -214,10 +216,6 @@ h4{
 
 .closeModal{
     margin-left:20.2rem;
-}
-
-html{
-    height:100%;
 }
 
 .loader {

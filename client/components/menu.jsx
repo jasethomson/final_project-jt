@@ -30,10 +30,10 @@ class Menu extends React.Component {
     const menuTextStyle ="pl-2 py-4 font-weight-bold"
 
     if (!this.state.showMenu) {
-      return <i className="fas fa-bars headerTextMenu headerMenuSize mx-2 align-self-center fa-lg" onClick={this.setMenu}></i>
+      return <i className="col-1 fas fa-bars headerTextMenu headerMenuSize text-white align-self-center fa-lg" onClick={this.setMenu}></i>
     } else {
       return (
-        <div className="wrapper headerMenuSize textFont">
+        <div className="col wrapper headerMenuSize textFont">
           <nav className="container d-flex column modal py-0 px-0 h-100 w-100 d-inline-block" style={containerOpacity}>
             <div className={menuStyle} style={greyDivOpacity} onClick={this.setMenu}></div>
             <div className={menuStyle} style={menuDivOpacity}>
