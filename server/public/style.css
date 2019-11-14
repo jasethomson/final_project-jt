@@ -78,12 +78,7 @@ body{
     font-size: 1.5rem;
 }
 
-.headerTextMenu{
-    /* display: inline-block; */
-}
-
 .searchBarForm > button {
-  /* background: #ddd; */
   background: white;
   font-size: 3vmin;
   border-radius: 3%;
@@ -331,6 +326,10 @@ table.table-bordered > tbody > tr > th{
         width: 44vw;
         margin: auto;
     }
+    .textSize {
+        font-size: 2.25rem;
+        font-weight: bold;
+    }
 }
 
 
@@ -359,6 +358,13 @@ table.table-bordered > tbody > tr > th{
     .textSize {
         font-size: 8vmin;
     }
+    #nonShadedMenu{
+        width: 30vw;
+    }
+
+    #shadedMenu{
+        width: 70vw;
+    }
 }
 
 
@@ -385,6 +391,13 @@ table.table-bordered > tbody > tr > th{
         font-size: 6vmin;
     }
     .textSize {
-        font-size: 8vmin;
+        font-size: 6vmin;
+    }
+    #nonShadedMenu{
+        width: 46vw;
+    }
+
+    #shadedMenu{
+        width: 54vw;
     }
 }
