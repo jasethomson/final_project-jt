@@ -32,8 +32,7 @@ body{
 
 .modal{
     display: block;
-    height: auto;
-    width: auto;
+    width: 100vw;
     position: fixed;
     z-index: 100;
     left: 50%;
@@ -41,6 +40,14 @@ body{
     transform: translate(-50%, -50%);
     background: rgba(252, 252, 252, 0.99);
     box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9)
+}
+
+#nonShadedMenu{
+    width: 20vw;
+}
+
+#shadedMenu{
+    width: 80vw;
 }
 
 .modalToo{
