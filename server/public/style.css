@@ -72,8 +72,7 @@ body{
 }
 
 .headerTextMenu{
-    display: inline-block;
-    color: black;
+    /* display: inline-block; */
 }
 
 .searchBarForm > button {
@@ -243,7 +242,12 @@ table.table-bordered > tbody > tr > th{
     border:1px solid black;
 }
 
-
+.headerContents{
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
 
 
 /* desktop */
@@ -256,7 +260,6 @@ table.table-bordered > tbody > tr > th{
         /* margin-top: 100px; */
     }
     .headerTextMenu{
-        color: white;
         font-weight: bold;
     }
     .fa-bars {
@@ -269,6 +272,7 @@ table.table-bordered > tbody > tr > th{
     }
     .textSize {
         font-size: 2.25rem;
+        font-weight: bold;
     }
 }
 
@@ -291,6 +295,10 @@ table.table-bordered > tbody > tr > th{
         background-color: rgba(255, 255, 255, 0.6);
         width: 34vw;
         margin: auto;
+    }
+    .textSize {
+        font-size: 2.25rem;
+        font-weight: bold;
     }
 }
 

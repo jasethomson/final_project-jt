@@ -3,9 +3,9 @@ import Menu from './menu';
 
 function Header(props) {
   return (
-    <div className="container">
-      <div className="row justify-content-end mx-3 mt-5 mb-1">
-        <div className="col-11 headerTextMenu textFont textSize flex-fill align-self-center text-capitalize">{ props.text }</div>
+    <div>
+      <div className="row justify-content-end mb-1 headerContents">
+        <div className="col-11 headerTextMenu textFont textSize flex-fill mt-2 align-self-center text-capitalize">{ props.text }</div>
         <Menu setView={ props.setView }/>
       </div>
     </div>
