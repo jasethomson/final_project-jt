@@ -2,7 +2,7 @@ import React from "react";
 
 function SearchBarResultsItem(props) {
   return (
-    <div className="card mb-0" style={{ maxWidth: "400px" }}>
+    <div className="card resultItem mb-0">
       <div className="row no-gutters flex-grow-1">
         <div className="col-4">
           <div

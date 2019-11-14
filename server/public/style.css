@@ -247,10 +247,16 @@ table.table-bordered > tbody > tr > th{
 .headerContents{
     background-color: rgba(255, 255, 255, 0.6);
     width: 100%;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
 }
 
+.resultItem{
+    width: 18vw;
+}
+
+#resultsRow, #searchRow {
+    margin: 0;
+}
 
 /* desktop */
 @media (min-width: 1025px){
@@ -302,6 +308,9 @@ table.table-bordered > tbody > tr > th{
         font-size: 2.25rem;
         font-weight: bold;
     }
+    .resultItem{
+        width: 32vw;
+    }
 }
 
 
@@ -329,6 +338,9 @@ table.table-bordered > tbody > tr > th{
     .textSize {
         font-size: 2.25rem;
         font-weight: bold;
+    }
+    .resultItem{
+        width: 40vw;
     }
 }
 
@@ -365,6 +377,20 @@ table.table-bordered > tbody > tr > th{
     #shadedMenu{
         width: 70vw;
     }
+    .resultItem{
+        width: 40vw;
+    }
+    .scrollAction{
+        height: 42vh;
+        width: 40vw;
+        overflow-y: scroll;
+        margin: 0;
+    }
+    .section>.row {
+        display: block;
+        margin-left: 0;
+        margin-top: 0;
+    }
 }
 
 
@@ -399,5 +425,21 @@ table.table-bordered > tbody > tr > th{
 
     #shadedMenu{
         width: 54vw;
+    }
+
+    .resultItem{
+        width: 70vw;
+    }
+
+    .scrollAction{
+        height: 60vh;
+        width: 70vw;
+        overflow-y: scroll;
+        margin: 0;
+    }
+
+    .section>.row {
+        display: block;
+        margin: 0;
     }
 }
