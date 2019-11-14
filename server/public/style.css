@@ -286,6 +286,12 @@ table.table-bordered > tbody > tr > th{
         font-size: 2.25rem;
         font-weight: bold;
     }
+    .calendarInputForm{
+        justify-content: center;
+    }
+    .calendarButtons{
+        width: 8vw;
+    }
 }
 
 
@@ -314,6 +320,12 @@ table.table-bordered > tbody > tr > th{
     }
     .resultItem{
         width: 32vw;
+    }
+    .calendarInputForm{
+        justify-content: center;
+    }
+    .calendarButtons{
+        width: 8vw;
     }
 }
 
@@ -348,6 +360,12 @@ table.table-bordered > tbody > tr > th{
     }
     .recipeContainer{
         width: 40vw;
+    }
+    .calendarInputForm{
+        justify-content: center;
+    }
+    .calendarButtons{
+        width: 12vw;
     }
 }
 
