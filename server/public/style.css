@@ -168,9 +168,13 @@ h4{
 }
 
 .recipeContainer{
-    padding: 9% 0;
-    width: 45%;
+    background-color: antiquewhite;
+    padding: 5% 0;
+    width: 26vw;
+    border-radius: 5%;
     margin: 15px auto;
+    font-size: 5vmin;
+    font-weight: bold;
 }
 
 .weekView{
@@ -342,6 +346,9 @@ table.table-bordered > tbody > tr > th{
     .resultItem{
         width: 40vw;
     }
+    .recipeContainer{
+        width: 40vw;
+    }
 }
 
 
@@ -441,5 +448,8 @@ table.table-bordered > tbody > tr > th{
     .section>.row {
         display: block;
         margin: 0;
+    }
+    .recipeContainer{
+        width: 40vw;
     }
 }

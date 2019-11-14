@@ -36,7 +36,7 @@ class RecipesCategoriesList extends React.Component{
       this.setState({ categoryList: recipes });
     })
   }
-    
+
   render(){
     if ( this.state.categoryList.length === 0 ){
            return (
