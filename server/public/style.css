@@ -74,6 +74,15 @@ body{
     color: black;
 }
 
+.searchBarForm > button {
+  /* background: #ddd; */
+  background: white;
+  font-size: 3vmin;
+  border-radius: 3%;
+  border: none;
+  cursor: pointer;
+}
+
 .textFont{
     font-family: 'Nunito Sans', sans-serif;
     /* font-family: 'Merriweather', serif; */
@@ -243,7 +252,10 @@ table.table-bordered > tbody > tr > th{
 @media (min-width: 1025px){
     .searchbar{
         width:25vw;
-        margin-top: 100px;
+        font-size: 3vmin;
+        border-radius: 3%;
+        border: none;
+        /* margin-top: 100px; */
     }
     .headerTextMenu{
         color: white;
@@ -267,6 +279,15 @@ table.table-bordered > tbody > tr > th{
 @media only screen and  (min-width: 769px) and (max-width: 1024px){
     .searchbar{
         width: 40vw;
+        font-size: 3vmin;
+        border-radius: 3%;
+        border: none;
+    }
+    .searchBarForm > button {
+        font-size: 3vmin;
+        border-radius: 3%;
+        border: none;
+        cursor: pointer;
     }
 }
 
@@ -277,6 +298,15 @@ table.table-bordered > tbody > tr > th{
 @media only screen and  (min-width: 737px) and (max-width: 768px){
     .searchbar{
         width: 45vw;
+        font-size: 3vmin;
+        border-radius: 3%;
+        border: none;
+    }
+    .searchBarForm > button {
+        font-size: 3vmin;
+        border-radius: 3%;
+        border: none;
+        cursor: pointer;
     }
 }
 
@@ -287,6 +317,15 @@ table.table-bordered > tbody > tr > th{
 @media only screen and  (min-width: 601px) and (max-width: 736px){
     .searchbar{
         width: 50vw;
+        font-size: 5.5vmin;
+        border-radius: 3%;
+        border: none;
+    }
+    .searchBarForm > button {
+        font-size: 5.5vmin;
+        border-radius: 3%;
+        border: none;
+        cursor: pointer;
     }
 }
 
@@ -297,5 +336,14 @@ table.table-bordered > tbody > tr > th{
 @media only screen and  (min-width: 0px) and (max-width: 600px){
     .searchbar{
         width: 70vw;
+        font-size: 5.5vmin;
+        border-radius: 3%;
+        border: none;
+    }
+    .searchBarForm > button {
+        font-size: 5.5vmin;
+        border-radius: 3%;
+        border: none;
+        cursor: pointer;
     }
 }

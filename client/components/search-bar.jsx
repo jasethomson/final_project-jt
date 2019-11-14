@@ -24,12 +24,12 @@ class SearchBar extends React.Component {
       <div className="searchBarContainer rounded-circle textFont">
         <form className="searchBarForm" onSubmit={this.handleSearch}>
           <input
-            className="rounded-pill mx-1 searchbar"
+            className="searchbar"
             type="search"
             value={this.state.value}
             placeholder=" Search"
             onChange={this.handleChange}/>
-          {<img className="searchIcon mx-1 mb-2" src="./image/searchIcon.png" alt="searchPicture" onClick={e=>this.handleSearch(e)}/>}
+          {<button><img className="searchIcon mx-1 mb-2" src="./image/searchIcon.png" alt="searchPicture" onClick={e => this.handleSearch(e)} /></button>}
         </form>
       </div>
     );
