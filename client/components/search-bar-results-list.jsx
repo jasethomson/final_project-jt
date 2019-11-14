@@ -38,7 +38,7 @@ class SearchBarResultsList extends React.Component {
     if(this.state.list.length === 0){
       return (
         <div>
-          <Header setView={this.props.setView} />
+          <Header setView={this.props.setView} text="Epic Meal Planner"/>
           <div className="textFont">
             <div className="row justify-content-center my-5">
               <SearchBar setView={this.props.setView} />
