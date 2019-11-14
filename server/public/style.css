@@ -258,7 +258,7 @@ table.table-bordered > tbody > tr > th{
     width: 18vw;
 }
 
-#resultsRow, #searchRow {
+#resultsRow, #searchRow, #favResultsRow, #favSearchRow{
     margin: 0;
 }
 

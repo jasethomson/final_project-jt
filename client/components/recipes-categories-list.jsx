@@ -55,13 +55,13 @@ class RecipesCategoriesList extends React.Component{
       return (
         <div>
           <Header setView={this.props.setView} text={this.props.category}/>
-          <div className="container textFont">
-            <div className="row justify-content-center my-5">
+          <div className="textFont">
+            <div id="favSearchRow" className="row justify-content-center my-5">
               <SearchBar setView={this.props.setView}/>
             </div>
-            <div>
+            <div id="favResultsRow" className="row justify-content-center">
               <section className="section">
-                <div className="row">
+                <div className="row scrollAction">
                   {this.state.categoryList.map((recipe, x) => {
                     return (
                       <SearchBarResultsItem
