@@ -262,6 +262,11 @@ table.table-bordered > tbody > tr > th{
     margin: 0;
 }
 
+.shoppingListContents{
+    overflow-y: scroll;
+    height: 80vh;
+}
+
 /* desktop */
 @media (min-width: 1025px){
     .searchbar{
@@ -327,6 +332,9 @@ table.table-bordered > tbody > tr > th{
     .calendarButtons{
         width: 8vw;
     }
+    .shoppingListContents{
+        height: 76vh;
+    }
 }
 
 
@@ -366,6 +374,9 @@ table.table-bordered > tbody > tr > th{
     }
     .calendarButtons{
         width: 12vw;
+    }
+    .shoppingListContents{
+        height: 82vh;
     }
 }
 
@@ -415,6 +426,9 @@ table.table-bordered > tbody > tr > th{
         display: block;
         margin-left: 0;
         margin-top: 0;
+    }
+    .shoppingListContents{
+        height: 46vh;
     }
 }
 
@@ -469,5 +483,8 @@ table.table-bordered > tbody > tr > th{
     }
     .recipeContainer{
         width: 40vw;
+    }
+    .shoppingListContents{
+        height: 74vh;
     }
 }
