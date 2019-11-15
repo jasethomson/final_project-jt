@@ -297,6 +297,9 @@ table.table-bordered > tbody > tr > th{
     .calendarButtons{
         width: 8vw;
     }
+    .calendarContents{
+         margin-top: 10vh;
+    }
 }
 
 
@@ -334,6 +337,9 @@ table.table-bordered > tbody > tr > th{
     }
     .shoppingListContents{
         height: 76vh;
+    }
+    .calendarContents{
+         margin-top: 8vh;
     }
 }
 
@@ -377,6 +383,9 @@ table.table-bordered > tbody > tr > th{
     }
     .shoppingListContents{
         height: 82vh;
+    }
+    .calendarContents{
+         margin-top: 10vh;
     }
 }
 
@@ -429,6 +438,23 @@ table.table-bordered > tbody > tr > th{
     }
     .shoppingListContents{
         height: 46vh;
+    }
+    .table {
+        height:43vh;
+        display: block;
+        overflow-y: scroll;
+        width: 64%;
+        position: relative;
+        left: 18%;
+    }
+    .calendarInputForm{
+        width: 64%;
+        position: relative;
+        left: 26%;
+    }
+    .calendarContents{
+        width: 100%;
+        max-width: none;
     }
 }
 
@@ -486,5 +512,9 @@ table.table-bordered > tbody > tr > th{
     }
     .shoppingListContents{
         height: 74vh;
+    }
+
+        .calendarContents{
+            margin-top: 0;
     }
 }
