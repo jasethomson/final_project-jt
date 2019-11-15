@@ -393,7 +393,7 @@ class Calendar extends React.Component {
       return (
         <div>
           <Header setView={this.props.setView} text={headerText}/>
-          <div className="container textFont mt-5">
+          <div className="calendarContents container textFont">
             <CalendarTable
               handleClick={this.handleClick}
               changeView={this.changeView}
