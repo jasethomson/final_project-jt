@@ -3,7 +3,7 @@ import ShoppingListItem from './shopping-list-item';
 
 function ShoppingListItemList(props) {
   return (
-    <div>
+    <div className="shoppingListContents">
       {props.allItems.map(item => {
         return (
           <ShoppingListItem
